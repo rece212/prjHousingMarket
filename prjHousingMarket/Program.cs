@@ -2,15 +2,10 @@
 {
     internal class Program
     {
-        private static List<Agent> AgentList = new List<Agent>();
+       
         static void Main(string[] args)
         {
-            AgentList.Add(new Agent(1, "Bob", "Smith",
-                false, "Black"));
-            AgentList.Add(new Agent(2, "Sand", "Bra",
-                            true, "Not from here"));
-            AgentList.Add(new Agent(3, "Jane", "Bra",
-                            false, "Maybe from here"));
+            AgentDB DB = new AgentDB();
             bool bStop = false;
 
             while (bStop != true) 
@@ -26,6 +21,7 @@
         }
         private static void Menu()
         {
+            AgentDB DB = new AgentDB();
             Console.WriteLine("Welcome to Marli Agents");
             Console.WriteLine("******************");
             Console.WriteLine("Please select what you want todo");
@@ -40,23 +36,16 @@
             }
             else if (userInput.Equals("1"))
             {
-                PrintAgents();
+                Console.WriteLine(DB.PrintAll());
             }
             else if (userInput.Equals("2"))
             {
                 AddAgent();
             }
         }
-
-        private static void PrintAgents()
-        {
-            foreach (Agent agent in AgentList)
-            {
-                Console.WriteLine(agent.ToString());
-            }
-        }
         private static void AddAgent()
         {
+            AgentDB DB = new AgentDB();
             Console.Write("Please enter agent no: ");
             String No = Console.ReadLine();
             Console.Write("Please enter agent name: ");
@@ -72,7 +61,7 @@
             {
                 bDrivers = true;
             }
-            AgentList.Add(new Agent(Convert.ToInt32(No), agentName,
+            DB.AddAgent(new Agent(Convert.ToInt32(No), agentName,
                 agentsurname, bDrivers, Race));
         }
     }
